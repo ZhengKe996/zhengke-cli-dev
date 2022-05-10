@@ -19,5 +19,8 @@
   "scripts": {
     "test": "echo \"Run testing from core\""
   },
-  "gitHead": "72b0f1ef8cbbc0ab1d63b4c0873cfe4185cc4314"
+  "gitHead": "72b0f1ef8cbbc0ab1d63b4c0873cfe4185cc4314",
+  "publishConfig": {
+    "access": "public"
+  }
 }
