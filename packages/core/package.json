@@ -6,6 +6,9 @@
   "homepage": "",
   "license": "ISC",
   "main": "lib/core.js",
+  "bin": {
+    "zhengke-cli-dev": "bin/index.js"
+  },
   "directories": {
     "lib": "lib",
     "test": "__tests__"
@@ -16,5 +19,5 @@
   "scripts": {
     "test": "echo \"Run testing from core\""
   },
-  "gitHead": "a108a41af8b1dabbbad0d379568b876a097b28ed"
+  "gitHead": "175205361f171ae4658c5a5ac75a4e8684b40ddf"
 }
