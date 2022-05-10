@@ -1,0 +1,19 @@
+{
+  "name": "@zhengke-cli-dev/core",
+  "version": "1.0.0",
+  "description": "zhengke-cli dev core",
+  "author": "ZhengKe <3119531802@qq.com>",
+  "homepage": "",
+  "license": "ISC",
+  "main": "lib/core.js",
+  "directories": {
+    "lib": "lib",
+    "test": "__tests__"
+  },
+  "files": [
+    "lib"
+  ],
+  "scripts": {
+    "test": "echo \"Run testing from core\""
+  }
+}
