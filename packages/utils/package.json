@@ -1,6 +1,6 @@
 {
   "name": "@zhengke-cli-dev/utils",
-  "version": "1.0.3",
+  "version": "1.0.0",
   "description": "> TODO: description",
   "author": "ZhengKe <3119531802@qq.com>",
   "homepage": "",
@@ -16,5 +16,5 @@
   "scripts": {
     "test": "echo \"Run testing from utils\""
   },
-  "gitHead": "175205361f171ae4658c5a5ac75a4e8684b40ddf"
+  "gitHead": "72b0f1ef8cbbc0ab1d63b4c0873cfe4185cc4314"
 }
