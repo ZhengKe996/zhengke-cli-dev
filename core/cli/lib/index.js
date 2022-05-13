@@ -7,6 +7,8 @@ const log = require("@zhengke-cli-dev/log");
 const colors = require("colors/safe");
 const userHome = require("user-home");
 const pathExists = require("path-exists").sync;
+const args = require("minimist")(process.argv.slice(2));
+
 const pkg = require("../package.json");
 const constant = require("./const");
 
@@ -16,9 +18,25 @@ function core() {
     checkNodeVersion();
     checkRoot();
     checkUserHome();
+    checkInputArgs();
+    log.verbose("debug", "test debug");
   } catch (e) {
     log.error(e.message);
   }
+}
+
+// 检查入参
+function checkInputArgs() {
+  checkArgs();
+}
+
+function checkArgs() {
+  if (args.debug) {
+    process.env.LOG_LEVEL = "verbose";
+  } else {
+    process.env.LOG_LEVEL = "info";
+  }
+  log.level = process.env.LOG_LEVEL;
 }
 
 // 检查用户目录
