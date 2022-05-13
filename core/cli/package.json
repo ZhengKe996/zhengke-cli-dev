@@ -20,9 +20,12 @@
     "test": "echo \"Run testing from core\""
   },
   "dependencies": {
+    "@zhengke-cli-dev/log": "file:../../utils/log",
     "@zhengke-cli-dev/utils": "file:../../utils/utils",
+    "colors": "^1.4.0",
     "import-local": "^3.1.0",
-    "npmlog": "^6.0.2"
+    "npmlog": "^6.0.2",
+    "semver": "^7.3.7"
   },
   "gitHead": "72b0f1ef8cbbc0ab1d63b4c0873cfe4185cc4314",
   "publishConfig": {
