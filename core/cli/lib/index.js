@@ -13,7 +13,7 @@ const dotenv = require("dotenv");
 const pkg = require("../package.json");
 const constant = require("./const");
 
-function core() {
+async function core() {
   try {
     checkPkgVersion();
     checkNodeVersion();
@@ -21,9 +21,33 @@ function core() {
     checkUserHome();
     checkInputArgs();
     checkEnv();
+    await checkGlobalUpdate();
   } catch (e) {
     log.error(e.message);
   }
+}
+
+// 检查是否需要全局更新
+async function checkGlobalUpdate() {
+  // 1. 获取当前版本号和模块名
+  const currentVersion = pkg.version;
+  const npmName = pkg.name;
+
+  // 2. 调用npm API 获取所有版本号
+  const { getNpmSemverVersions } = require("@zhengke-cli-dev/get-npm-info");
+  const lastversion = await getNpmSemverVersions(currentVersion, npmName);
+
+  // 3. 提取所有版本号，比对哪些版本号大于当前版本号
+  if (lastversion && semver.gt(lastversion, currentVersion)) {
+    log.warn(
+      colors.yellow(
+        `更新提示: 请手动更新 ${npmName}, 当前版本: ${currentVersion}, 最新版本为: ${lastversion},
+        更新命令: npm install -g ${npmName}`
+      )
+    );
+  }
+
+  // 4. 获取最新的版本号，提示用户更新到该版本
 }
 
 // 检查环境变量
