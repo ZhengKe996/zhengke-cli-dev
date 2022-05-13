@@ -13,11 +13,18 @@ function core() {
   try {
     checkPkgVersion();
     checkNodeVersion();
+    checkRoot();
   } catch (e) {
     log.error(e.message);
   }
 }
 
+// 检查root账户
+function checkRoot() {
+  const rootCheck = require("root-check");
+  rootCheck();
+}
+// 检查Node版本号
 function checkNodeVersion() {
   // 第一步 获取当前Node版本号
   const currentVersion = process.version;
