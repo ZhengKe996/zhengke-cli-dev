@@ -43,7 +43,7 @@ function getSemverVersions(baseVersion, versions) {
     .sort((a, b) => semver.gt(b, a));
   return versions;
 }
-
+// 返回最新的版本号
 async function getNpmSemverVersions(baseVersion, npmName, registry) {
   const versions = await getNpmVersions(npmName, registry);
   const newVersions = getSemverVersions(baseVersion, versions);
