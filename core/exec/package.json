@@ -27,6 +27,7 @@
     "url": "https://github.com/ZhengKe996/zhengke-cli-dev/issues"
   },
   "dependencies": {
-    "@zhengke-cli-dev/package": "file:../../models/package"
+    "@zhengke-cli-dev/package": "file:../../models/package",
+    "@zhengke-cli-dev/log": "file:../../utils/log"
   }
 }

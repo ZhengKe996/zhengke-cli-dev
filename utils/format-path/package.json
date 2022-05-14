@@ -1,7 +1,7 @@
 {
-  "name": "@zhengke-cli-dev/package",
+  "name": "@zhengke-cli-dev/format-path",
   "version": "1.0.4",
-  "description": "zhengke cli dev package",
+  "description": "> TODO: description",
   "author": "ZhengKe <3119531802@qq.com>",
   "homepage": "https://github.com/ZhengKe996/zhengke-cli-dev#readme",
   "license": "ISC",
@@ -25,10 +25,5 @@
   },
   "bugs": {
     "url": "https://github.com/ZhengKe996/zhengke-cli-dev/issues"
-  },
-  "dependencies": {
-    "@zhengke-cli-dev/utils": "file:../../utils/utils",
-    "@zhengke-cli-dev/format-path": "file:../../utils/format-path",
-    "pkg-dir": "^5.0.0"
   }
 }
