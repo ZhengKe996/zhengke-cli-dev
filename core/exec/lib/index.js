@@ -30,12 +30,14 @@ async function exec() {
       storeDir: storeDir,
       packageVersion: packageVersion,
     });
-    if (pkg.exists()) {
+    if (await pkg.exists()) {
       // 更新package
       //  pkg.update();
+      console.log("更新 xxxxx");
     } else {
       // 安装package
       await pkg.install();
+      console.log("安装");
     }
   } else {
     pkg = new Package({
@@ -44,6 +46,7 @@ async function exec() {
       packageVersion: packageVersion,
     });
   }
+
   const rootFile = pkg.getRootFilePath();
   if (rootFile) {
     require(rootFile).apply(null, arguments);

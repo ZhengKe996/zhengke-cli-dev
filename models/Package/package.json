@@ -28,9 +28,10 @@
   },
   "dependencies": {
     "@zhengke-cli-dev/format-path": "file:../../utils/format-path",
-    "@zhengke-cli-dev/utils": "file:../../utils/utils",
     "@zhengke-cli-dev/get-npm-info": "file:../../utils/get-npm-info",
+    "@zhengke-cli-dev/utils": "file:../../utils/utils",
     "npminstall": "^6.1.0",
+    "path-exists": "^4.0.0",
     "pkg-dir": "^5.0.0"
   }
 }
