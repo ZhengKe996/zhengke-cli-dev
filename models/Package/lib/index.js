@@ -2,6 +2,9 @@
 
 const path = require("path");
 const pkgDir = require("pkg-dir").sync;
+const npmInstall = require("npminstall");
+
+const { getDefaultRegistry } = require("@zhengke-cli-dev/get-npm-info");
 const formatPath = require("@zhengke-cli-dev/format-path");
 const { isObject } = require("@zhengke-cli-dev/utils");
 class Package {
@@ -12,6 +15,8 @@ class Package {
     // Package 的存储路径
     this.targetPath = options.targetPath;
 
+    // Package 的缓存路径
+    this.storeDir = options.storeDir;
     // Package 的name
     this.packageName = options.packageName;
 
@@ -22,7 +27,19 @@ class Package {
   // 判断当前Package是否存在
   exists() {}
   // 安装Package
-  install() {}
+  install() {
+    return npmInstall({
+      root: this.targetPath,
+      storeDir: this.storeDir,
+      registry: getDefaultRegistry(),
+      pkgs: [
+        {
+          name: this.packageName,
+          version: this.packageVersion,
+        },
+      ],
+    });
+  }
   // 更新Package
   update() {}
 
