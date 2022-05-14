@@ -7,6 +7,7 @@ const semver = require("semver");
 const commander = require("commander");
 const log = require("@zhengke-cli-dev/log");
 const init = require("@zhengke-cli-dev/init");
+const exec = require("@zhengke-cli-dev/exec");
 const colors = require("colors/safe");
 const userHome = require("user-home");
 const pathExists = require("path-exists").sync;
@@ -14,6 +15,7 @@ const dotenv = require("dotenv");
 const pkg = require("../package.json");
 const constant = require("./const");
 const program = new commander.Command();
+
 async function core() {
   try {
     await prepare();
@@ -45,7 +47,7 @@ function registerCommand() {
   program
     .command("init [projectName]")
     .option("-f, --force", "是否强制初始化项目")
-    .action(init);
+    .action(exec);
 
   // 开启debug模式
   program.on("option:debug", function () {
