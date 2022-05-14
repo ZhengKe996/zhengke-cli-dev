@@ -5,7 +5,7 @@ const log = require("@zhengke-cli-dev/log");
 const Package = require("@zhengke-cli-dev/package");
 
 const SETTINGS = {
-  init: "@zhengke-cl-dev/init",
+  init: "@zhengke-cli-dev/init",
 };
 
 const CACHE_DIR = "dependencies";
@@ -23,16 +23,19 @@ async function exec() {
 
   if (!targetPath) {
     targetPath = path.resolve(homePath, CACHE_DIR); // 生成缓存路径
+
     storeDir = path.resolve(targetPath, "node_modules");
+
     pkg = new Package({
       targetPath: targetPath,
       packageName: packageName,
       storeDir: storeDir,
       packageVersion: packageVersion,
     });
+
     if (await pkg.exists()) {
       // 更新package
-      //  pkg.update();
+      await pkg.update();
       console.log("更新 xxxxx");
     } else {
       // 安装package

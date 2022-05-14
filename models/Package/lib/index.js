@@ -1,6 +1,7 @@
 "use strict";
 
 const path = require("path");
+const fse = require("fs-extra");
 const pkgDir = require("pkg-dir").sync;
 const npmInstall = require("npminstall");
 const pathExists = require("path-exists");
@@ -28,12 +29,15 @@ class Package {
     this.packageVersion = options.packageVersion;
 
     // Package 的缓存目录前缀
-    this.npmCacheFilePathPrefix = this.packageName.replace("/", "_");
+    this.cacheFilePathPrefix = this.packageName.replace("/", "_");
   }
 
   async prepare() {
-    // 查看具体版本号
+    if (this.storeDir && !pathExists(this.storeDir)) {
+      fse.mkdirpSync(this.storeDir);
+    }
     if (this.packageVersion === "latest") {
+      // 查看具体版本号
       this.packageVersion = await getNpmSemverVsersion(this.packageName);
     }
   }
@@ -45,18 +49,29 @@ class Package {
     );
   }
 
+  getSpecificCacheFilePath(packageVersion) {
+    return path.resolve(
+      this.storeDir,
+      `_${this.cacheFilePathPrefix}@${packageVersion}@${this.packageName}`
+    );
+  }
+
   // 判断当前Package是否存在
   async exists() {
-    if (this.storeDir) {
-      await this.prepare();
-      console.log(this.cacheFilePath);
-      return pathExists(this.cacheFilePath);
-    } else {
-      return pathExists(this.targetPath);
+    try {
+      if (this.storeDir) {
+        await this.prepare();
+        return pathExists(this.cacheFilePath);
+      } else {
+        return pathExists(this.targetPath);
+      }
+    } catch (e) {
+      console.log(e);
     }
   }
   // 安装Package
   async install() {
+    // 获取最新的npm模块版本号
     await this.prepare();
     return npmInstall({
       root: this.targetPath,
@@ -71,7 +86,33 @@ class Package {
     });
   }
   // 更新Package
-  update() {}
+  async update() {
+    await this.prepare();
+
+    // 1. 获取最新的npm模块版本号
+    const latestPackageVersion = await getNpmSemverVsersion(this.packageName);
+
+    // 2. 查询版本号对应路径是否存在
+    const latestFilePath = this.getSpecificCacheFilePath(latestPackageVersion);
+
+    // 3. 如果不存在，则直接安装最新的版本
+    if (!pathExists(latestFilePath)) {
+      await npminstall({
+        root: this.targetPath,
+        storeDir: this.storeDir,
+        registry: getDefaultRegistry(),
+        pkgs: [
+          {
+            name: this.packageName,
+            version: latestPackageVersion,
+          },
+        ],
+      });
+      this.packageVersion = latestPackageVersion;
+    } else {
+      this.packageVersion = latestPackageVersion;
+    }
+  }
 
   // 获取路口文件的路径
   getRootFilePath() {
