@@ -10,24 +10,27 @@ const init = require("@zhengke-cli-dev/init");
 const colors = require("colors/safe");
 const userHome = require("user-home");
 const pathExists = require("path-exists").sync;
-const args = require("minimist")(process.argv.slice(2));
 const dotenv = require("dotenv");
 const pkg = require("../package.json");
 const constant = require("./const");
 const program = new commander.Command();
 async function core() {
   try {
-    checkPkgVersion();
-    checkNodeVersion();
-    checkRoot();
-    checkUserHome();
-    // checkInputArgs();
-    checkEnv();
-    await checkGlobalUpdate();
+    await prepare();
     registerCommand();
   } catch (e) {
     log.error(e.message);
   }
+}
+
+async function prepare() {
+  checkPkgVersion();
+  checkNodeVersion();
+  checkRoot();
+  checkUserHome();
+
+  checkEnv();
+  await checkGlobalUpdate();
 }
 
 // 命令注册
@@ -36,7 +39,8 @@ function registerCommand() {
     .name(Object.keys(pkg.bin)[0])
     .usage("<command> [options]")
     .version(pkg.version)
-    .option("-d, --debug", "是否开启调试模式", false);
+    .option("-d, --debug", "是否开启调试模式", false)
+    .option("-tp, --targetPath <targetPath>", "是否指定本地调试文件路径", "");
 
   program
     .command("init [projectName]")
@@ -51,6 +55,11 @@ function registerCommand() {
       process.env.LOG_LEVEL = "info";
     }
     log.level = process.env.LOG_LEVEL;
+  });
+
+  // 指定 targetPath
+  program.on("option:targetPath", function () {
+    process.env.CLI_TARGET_PATH = program.opts().targetPath;
   });
 
   // 对未知命令监听
@@ -102,7 +111,6 @@ function checkEnv() {
     });
   }
   createDefaultConfig();
-  log.verbose("环境变量", process.env.CLI_HOME_PATH);
 }
 
 function createDefaultConfig() {
@@ -116,20 +124,6 @@ function createDefaultConfig() {
   }
 
   process.env.CLI_HOME_PATH = cliConfig.cliHome;
-}
-
-// 检查入参
-function checkInputArgs() {
-  checkArgs();
-}
-
-function checkArgs() {
-  if (args.debug) {
-    process.env.LOG_LEVEL = "verbose";
-  } else {
-    process.env.LOG_LEVEL = "info";
-  }
-  log.level = process.env.LOG_LEVEL;
 }
 
 // 检查用户目录
