@@ -7,10 +7,15 @@ const LOWEST_NODE_VERSION = "12.0.0";
 
 class Command {
   constructor(argv) {
-    if (!argv) throw new Error("参数不能为空!");
-    if (!Array.isArray(argv)) throw new Error("参数必须为数组");
-    if (argv.length < 1) throw new Error("参数列表不能为空");
-
+    if (!argv) {
+      throw new Error("参数不能为空！");
+    }
+    if (!Array.isArray(argv)) {
+      throw new Error("参数必须为数组！");
+    }
+    if (argv.length < 1) {
+      throw new Error("参数列表为空！");
+    }
     this._argv = argv;
     let runner = new Promise((resolve, reject) => {
       let chain = Promise.resolve();
@@ -18,7 +23,6 @@ class Command {
       chain = chain.then(() => this.initArgs());
       chain = chain.then(() => this.init());
       chain = chain.then(() => this.exec());
-
       chain.catch((err) => {
         log.error(err.message);
       });

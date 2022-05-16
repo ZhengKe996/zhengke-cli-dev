@@ -1,9 +1,10 @@
 "use strict";
 
+const cp = require("child_process");
 const path = require("path");
 const log = require("@zhengke-cli-dev/log");
 const Package = require("@zhengke-cli-dev/package");
-
+const { exec: spawn } = require("@zhengke-cli-dev/utils");
 const SETTINGS = {
   init: "@zhengke-cli-dev/init",
 };
@@ -54,10 +55,40 @@ async function exec() {
 
   if (rootFile) {
     try {
-      require(rootFile).call(null, Array.from(arguments));
+      // 在当前进程调用
+      // require(rootFile).call(null, Array.from(arguments));
+
+      // 在node 子进程中调用
+      const args = Array.from(arguments);
+      const cmd = args[args.length - 1];
+      const o = Object.create(null);
+      Object.keys(cmd).forEach((key) => {
+        if (
+          cmd.hasOwnProperty(key) &&
+          !key.startsWith("_") &&
+          key !== "parent"
+        ) {
+          o[key] = cmd[key];
+        }
+      });
+      args[args.length - 1] = o;
+      const code = `require('${rootFile}').call(null, ${JSON.stringify(args)})`;
+      const child = spawn("node", ["-e", code], {
+        cwd: process.cwd(),
+        stdio: "inherit",
+      });
+      child.on("error", (e) => {
+        log.error(e.message);
+        process.exit(1);
+      });
+      child.on("exit", (e) => {
+        log.verbose("命令执行成功:" + e);
+        process.exit(e);
+      });
     } catch (e) {
       log.error(e.message);
     }
   }
 }
+
 module.exports = exec;

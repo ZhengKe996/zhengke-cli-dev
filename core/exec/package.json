@@ -28,6 +28,7 @@
   },
   "dependencies": {
     "@zhengke-cli-dev/package": "file:../../models/package",
-    "@zhengke-cli-dev/log": "file:../../utils/log"
+    "@zhengke-cli-dev/log": "file:../../utils/log",
+    "@zhengke-cli-dev/utils": "file:../../utils/utils"
   }
 }
