@@ -1,7 +1,7 @@
 {
-  "name": "@zhengke-cli-dev/init",
+  "name": "@zhengke-cli-dev/command",
   "version": "1.0.4",
-  "description": "> TODO: description",
+  "description": "zhengke cli dev command",
   "author": "ZhengKe <3119531802@qq.com>",
   "homepage": "https://github.com/ZhengKe996/zhengke-cli-dev#readme",
   "license": "ISC",
@@ -27,7 +27,8 @@
     "url": "https://github.com/ZhengKe996/zhengke-cli-dev/issues"
   },
   "dependencies": {
-    "@zhengke-cli-dev/command": "file:../../models/command",
+    "colors": "^1.4.0",
+    "semver": "^7.3.7",
     "@zhengke-cli-dev/log": "file:../../utils/log"
   }
 }
