@@ -13,6 +13,8 @@ const CACHE_DIR = "dependencies";
 async function exec() {
   let targetPath = process.env.CLI_TARGET_PATH;
   const homePath = process.env.CLI_HOME_PATH;
+  log.verbose("targetPath: ", targetPath);
+  log.verbose("homePath: ", homePath);
   let storeDir = "";
   let pkg;
 
@@ -36,7 +38,6 @@ async function exec() {
     if (await pkg.exists()) {
       // 更新package
       await pkg.update();
-      console.log("更新 xxxxx");
     } else {
       // 安装package
       await pkg.install();
@@ -51,6 +52,7 @@ async function exec() {
   }
 
   const rootFile = pkg.getRootFilePath();
+
   if (rootFile) {
     require(rootFile).apply(null, arguments);
   }

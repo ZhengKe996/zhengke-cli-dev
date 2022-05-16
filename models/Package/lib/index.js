@@ -2,6 +2,8 @@
 
 const path = require("path");
 const fse = require("fs-extra");
+const log = require("@zhengke-cli-dev/log");
+const colors = require("colors/safe");
 const pkgDir = require("pkg-dir").sync;
 const npmInstall = require("npminstall");
 const pathExists = require("path-exists");
@@ -66,7 +68,7 @@ class Package {
         return pathExists(this.targetPath);
       }
     } catch (e) {
-      console.log(e);
+      log.warn(colors.red(e.message));
     }
   }
   // 安装Package
@@ -116,17 +118,25 @@ class Package {
 
   // 获取路口文件的路径
   getRootFilePath() {
-    // 1. 获取Package.json所在目录
-    const dir = pkgDir(this.targetPath);
-    if (!dir) return null;
-
-    // 2. 读取 Package.json
-    const pkgFire = require(path.resolve(dir, "package.json"));
-
-    // 3. 寻找 main/lib
-    if (!pkgFire && !pkgFire.main) return null;
-    // 4. 路径的兼容(macOS/windows)
-    return formatPath(path.resolve(dir, pkgFire.main));
+    function _getRootFile(targetPath) {
+      // 1. 获取 package.json 所在目录
+      const dir = pkgDir(targetPath);
+      if (dir) {
+        // 2. 读取package.json
+        const pkgFile = require(path.resolve(dir, "package.json"));
+        // 3. 寻找 main/lib
+        if (pkgFile && pkgFile.main) {
+          // 4. 路径的兼容(macOS/windows)
+          return formatPath(path.resolve(dir, pkgFile.main));
+        }
+      }
+      return null;
+    }
+    if (this.storeDir) {
+      return _getRootFile(this.cacheFilePath);
+    } else {
+      return _getRootFile(this.targetPath);
+    }
   }
 }
 
