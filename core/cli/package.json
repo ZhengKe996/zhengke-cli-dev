@@ -20,11 +20,11 @@
     "test": "echo \"Run testing from core\""
   },
   "dependencies": {
+    "@zhengke-cli-dev/exec": "file:../exec",
     "@zhengke-cli-dev/get-npm-info": "file:../../utils/get-npm-info",
     "@zhengke-cli-dev/init": "file:../../commands/init",
     "@zhengke-cli-dev/log": "file:../../utils/log",
     "@zhengke-cli-dev/utils": "file:../../utils/utils",
-    "@zhengke-cli-dev/exec": "file:../exec",
     "colors": "^1.4.0",
     "commander": "^9.2.0",
     "dotenv": "^16.0.1",
