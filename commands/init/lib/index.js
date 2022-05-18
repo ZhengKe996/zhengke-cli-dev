@@ -1,11 +1,17 @@
 "use strict";
 
 const fs = require("fs");
+const path = require("path");
 const fse = require("fs-extra");
-const inquirer = require("inquirer");
 const semver = require("semver");
+const userHome = require("user-home");
+const inquirer = require("inquirer");
 const Command = require("@zhengke-cli-dev/command");
 const log = require("@zhengke-cli-dev/log");
+const Package = require("@zhengke-cli-dev/package");
+const { spinnerStart } = require("@zhengke-cli-dev/utils");
+
+const getProjectTemplate = require("./getProjectTemplate");
 
 const TYPE_PROJECT = "project";
 const TYPE_COMPONENT = "component";
@@ -20,19 +26,64 @@ class InitCommand extends Command {
   async exec() {
     try {
       // 1. 准备阶段
-      const res = await this.prepare();
-      console.log(res, "---> xxx");
-      if (res) {
+      const projectInfo = await this.prepare();
+
+      if (projectInfo) {
+        log.verbose("projectInfo:", projectInfo);
+        this.projectInfo = projectInfo;
+
         // 2. 下载模板
+        await this.downloadTemplate();
+
         // 3. 安装模板
-        console.log("下载");
       }
     } catch (e) {
       log.error(e.message);
     }
   }
 
+  async downloadTemplate() {
+    const { projectTemplate } = this.projectInfo;
+    const templateInfo = this.template.find(
+      (item) => item.npmName === projectTemplate
+    );
+
+    const targetPath = path.resolve(userHome, ".zhengke-cli-dev", "template");
+    const storeDir = path.resolve(
+      userHome,
+      ".zhengke-cli-dev",
+      "template",
+      "node_modules"
+    );
+
+    const { npmName, version } = templateInfo;
+
+    const templateNpm = new Package({
+      targetPath: targetPath,
+      storeDir: storeDir,
+      packageName: npmName,
+      packageVersion: version,
+    });
+
+    if (!(await templateNpm.exists())) {
+      const spinner = spinnerStart("正在下载ing");
+      await templateNpm.install();
+      spinner.stop(true);
+      log.success("下载模板成功");
+    } else {
+      const spinner = spinnerStart("正在更新ing");
+      await templateNpm.update();
+      spinner.stop(true);
+      log.success("更新模板成功");
+    }
+  }
+
   async prepare() {
+    // 0. 校验项目模板是否存在
+    const template = await getProjectTemplate();
+    if (!template || template.length === 0) throw new Error("项目模板不存在");
+    this.template = template;
+
     // 1. 判断当前目录是否为空
     const localPath = process.cwd();
     if (!this.isDirEmpty(localPath)) {
@@ -77,7 +128,7 @@ class InitCommand extends Command {
       );
     }
 
-    const projectInfo = {};
+    let projectInfo = {};
     // 1. 选择创建项目或组件
     const { type } = await inquirer.prompt({
       type: "list",
@@ -94,7 +145,7 @@ class InitCommand extends Command {
 
     if (type === TYPE_PROJECT) {
       // 2. 获取项目的基本信息
-      const o = await inquirer.prompt([
+      const project = await inquirer.prompt([
         {
           type: "input",
           name: "projectName",
@@ -137,14 +188,29 @@ class InitCommand extends Command {
             else return v;
           },
         },
+        {
+          type: "list",
+          name: "projectTemplate",
+          message: "请选择项目模板",
+          choices: this.createTemplateChoice(),
+        },
       ]);
 
-      console.log(o);
+      projectInfo = {
+        type,
+        ...project,
+      };
     } else if (type === TYPE_COMPONENT) {
     }
 
     // return 项目的基本信息 (Object)
     return projectInfo;
+  }
+  createTemplateChoice() {
+    return this.template.map((item) => ({
+      value: item.npmName,
+      name: item.name,
+    }));
   }
 
   isDirEmpty(localPath) {

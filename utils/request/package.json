@@ -1,5 +1,5 @@
 {
-  "name": "@zhengke-cli-dev/init",
+  "name": "@zhengke-cli-dev/request",
   "version": "1.0.4",
   "description": "> TODO: description",
   "author": "ZhengKe <3119531802@qq.com>",
@@ -27,14 +27,6 @@
     "url": "https://github.com/ZhengKe996/zhengke-cli-dev/issues"
   },
   "dependencies": {
-    "@zhengke-cli-dev/command": "file:../../models/command",
-    "@zhengke-cli-dev/log": "file:../../utils/log",
-    "@zhengke-cli-dev/package": "file:../../models/package",
-    "@zhengke-cli-dev/request": "file:../../utils/request",
-    "@zhengke-cli-dev/utils": "file:../../utils/utils",
-    "fs-extra": "^10.1.0",
-    "inquirer": "^8.2.4",
-    "semver": "^7.3.7",
-    "user-home": "^3.0.0"
+    "axios": "^0.27.2"
   }
 }
