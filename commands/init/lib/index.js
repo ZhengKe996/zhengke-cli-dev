@@ -9,7 +9,7 @@ const inquirer = require("inquirer");
 const Command = require("@zhengke-cli-dev/command");
 const log = require("@zhengke-cli-dev/log");
 const Package = require("@zhengke-cli-dev/package");
-const { spinnerStart } = require("@zhengke-cli-dev/utils");
+const { spinnerStart, sleep } = require("@zhengke-cli-dev/utils");
 
 const getProjectTemplate = require("./getProjectTemplate");
 
@@ -67,14 +67,24 @@ class InitCommand extends Command {
 
     if (!(await templateNpm.exists())) {
       const spinner = spinnerStart("正在下载ing");
-      await templateNpm.install();
-      spinner.stop(true);
-      log.success("下载模板成功");
+      try {
+        await templateNpm.install();
+        log.success("下载模板成功");
+      } catch (e) {
+        throw new Error(e);
+      } finally {
+        spinner.stop(true);
+      }
     } else {
       const spinner = spinnerStart("正在更新ing");
-      await templateNpm.update();
-      spinner.stop(true);
-      log.success("更新模板成功");
+      try {
+        await templateNpm.update();
+        log.success("更新模板成功");
+      } catch (e) {
+        throw new Error(e);
+      } finally {
+        spinner.stop(true);
+      }
     }
   }
 
