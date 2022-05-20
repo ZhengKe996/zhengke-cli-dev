@@ -12,15 +12,11 @@ const Command = require("@zhengke-cli-dev/command");
 const log = require("@zhengke-cli-dev/log");
 const Package = require("@zhengke-cli-dev/package");
 const { spinnerStart, execAsync } = require("@zhengke-cli-dev/utils");
-
 const getProjectTemplate = require("./getProjectTemplate");
-
 const TYPE_PROJECT = "project";
 const TYPE_COMPONENT = "component";
-
 const TEMPLATE_TYPE_NORMAL = "normal";
 const TEMPLATE_TYPE_CUSTOM = "custom";
-
 const WHITE_COMMAND = ["npm", "cnpm", "yarn", "pnpm"];
 class InitCommand extends Command {
   init() {
@@ -98,6 +94,7 @@ class InitCommand extends Command {
         },
         (err, files) => {
           if (err) reject(err);
+
           Promise.all(
             files.map((file) => {
               const filePath = path.join(dir, file);
@@ -122,8 +119,8 @@ class InitCommand extends Command {
 
   // 标准安装
   async installNormalTemplate() {
-    console.log("------4");
     log.verbose("templateInfo", this.templateInfo);
+
     // 1. 拷贝模板代码至当前目录
     let spinner = spinnerStart("正在安装模板");
     try {
@@ -146,6 +143,7 @@ class InitCommand extends Command {
 
     await this.ejsRender(ignore);
     const { installCommand, startCommand } = this.templateInfo;
+
     // 2. 依赖安装
     await this.execCommand({
       command: installCommand,
@@ -178,6 +176,7 @@ class InitCommand extends Command {
 
     const { npmName, version } = templateInfo;
     this.templateInfo = templateInfo;
+
     const templateNpm = new Package({
       targetPath: targetPath,
       storeDir: storeDir,
@@ -187,6 +186,7 @@ class InitCommand extends Command {
 
     if (!(await templateNpm.exists())) {
       const spinner = spinnerStart("正在下载ing");
+
       try {
         await templateNpm.install();
       } catch (e) {
@@ -200,6 +200,7 @@ class InitCommand extends Command {
       }
     } else {
       const spinner = spinnerStart("正在更新ing");
+
       try {
         await templateNpm.update();
       } catch (e) {
