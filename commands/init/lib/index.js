@@ -6,6 +6,8 @@ const fse = require("fs-extra");
 const semver = require("semver");
 const userHome = require("user-home");
 const inquirer = require("inquirer");
+const glob = require("glob");
+const ejs = require("ejs");
 const Command = require("@zhengke-cli-dev/command");
 const log = require("@zhengke-cli-dev/log");
 const Package = require("@zhengke-cli-dev/package");
@@ -81,6 +83,43 @@ class InitCommand extends Command {
     }
     if (result !== 0) throw new Error(errmsg);
   }
+
+  // ejs 模板渲染
+  async ejsRender(ignore) {
+    const dir = process.cwd();
+    const projectInfo = this.projectInfo;
+    return new Promise((resolve, reject) => {
+      glob(
+        "**",
+        {
+          cwd: dir,
+          ignore: ignore,
+          nodir: true,
+        },
+        (err, files) => {
+          if (err) reject(err);
+          Promise.all(
+            files.map((file) => {
+              const filePath = path.join(dir, file);
+              return new Promise((resolve1, reject1) => {
+                ejs.renderFile(filePath, projectInfo, {}, (err, result) => {
+                  if (err) reject1(err);
+                  else {
+                    // 将 ejs 渲染结果写入 package.json
+                    fse.writeFileSync(filePath, result);
+                    resolve1(result);
+                  }
+                });
+              });
+            })
+          )
+            .then(() => resolve())
+            .catch((err) => reject(err));
+        }
+      );
+    });
+  }
+
   // 标准安装
   async installNormalTemplate() {
     log.verbose("templateInfo", this.templateInfo);
@@ -102,6 +141,9 @@ class InitCommand extends Command {
       log.success("模板安装成功");
     }
 
+    const ignore = ["node_modules/**", "public/**"];
+
+    await this.ejsRender(ignore);
     const { installCommand, startCommand } = this.templateInfo;
     // 2. 依赖安装
     await this.execCommand({
@@ -109,7 +151,7 @@ class InitCommand extends Command {
       errmsg: "依赖安装过程中失败！ 请手动执行 npm install",
     });
 
-    // 3. 启动命令
+    // // 3. 启动命令
     await this.execCommand({
       command: startCommand,
       errmsg: "项目启动过程失败, 请手动执行 npm run dev",
@@ -295,6 +337,16 @@ class InitCommand extends Command {
     } else if (type === TYPE_COMPONENT) {
     }
 
+    // 生成 className
+    if (projectInfo.projectName) {
+      projectInfo.className = require("kebab-case")(
+        projectInfo.projectName
+      ).replace(/^-/, "");
+    }
+
+    // 生成 version
+    if (projectInfo.projectVersion)
+      projectInfo.version = projectInfo.projectVersion;
     // return 项目的基本信息 (Object)
     return projectInfo;
   }

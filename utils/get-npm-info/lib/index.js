@@ -21,7 +21,7 @@ function getNpmInfo(npmName, registry) {
     });
 }
 // 判断使用npm官网还是淘宝镜像
-function getDefaultRegistry(isOriginal = false) {
+function getDefaultRegistry(isOriginal = true) {
   return isOriginal
     ? "https://registry.npmjs.org"
     : "https://registry.npm.taobao.org";
