@@ -9,14 +9,17 @@ const inquirer = require("inquirer");
 const Command = require("@zhengke-cli-dev/command");
 const log = require("@zhengke-cli-dev/log");
 const Package = require("@zhengke-cli-dev/package");
-const { spinnerStart } = require("@zhengke-cli-dev/utils");
+const { spinnerStart, execAsync } = require("@zhengke-cli-dev/utils");
 
 const getProjectTemplate = require("./getProjectTemplate");
 
 const TYPE_PROJECT = "project";
 const TYPE_COMPONENT = "component";
+
 const TEMPLATE_TYPE_NORMAL = "normal";
 const TEMPLATE_TYPE_CUSTOM = "custom";
+
+const WHITE_COMMAND = ["npm", "cnpm", "yarn", "pnpm"];
 class InitCommand extends Command {
   init() {
     this.projectName = this._argv[0] || "";
@@ -59,8 +62,28 @@ class InitCommand extends Command {
       throw new Error("项目模板信息无法识别");
     }
   }
+  checkCommand(cmd) {
+    if (WHITE_COMMAND.includes(cmd) >= 0) return cmd;
+  }
+
+  async execCommand({ command, errmsg }) {
+    let result;
+    if (command) {
+      const cmdArray = command.split(" ");
+      const cmd = this.checkCommand(cmdArray[0]);
+      if (!cmd) throw new Error("命令不存在! 命令: ", command);
+      const args = cmdArray.slice(1);
+
+      result = await execAsync(cmd, args, {
+        stdio: "inherit",
+        cwd: process.cwd(),
+      });
+    }
+    if (result !== 0) throw new Error(errmsg);
+  }
   // 标准安装
   async installNormalTemplate() {
+    log.verbose("templateInfo", this.templateInfo);
     // 1. 拷贝模板代码至当前目录
     let spinner = spinnerStart("正在安装模板");
     try {
@@ -78,6 +101,19 @@ class InitCommand extends Command {
       spinner.stop(true);
       log.success("模板安装成功");
     }
+
+    const { installCommand, startCommand } = this.templateInfo;
+    // 2. 依赖安装
+    await this.execCommand({
+      command: installCommand,
+      errmsg: "依赖安装过程中失败！ 请手动执行 npm install",
+    });
+
+    // 3. 启动命令
+    await this.execCommand({
+      command: startCommand,
+      errmsg: "项目启动过程失败, 请手动执行 npm run dev",
+    });
   }
   // 自定义安装
   async installCustomTemplate() {}

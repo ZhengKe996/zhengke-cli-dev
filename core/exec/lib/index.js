@@ -1,6 +1,5 @@
 "use strict";
 
-const cp = require("child_process");
 const path = require("path");
 const log = require("@zhengke-cli-dev/log");
 const Package = require("@zhengke-cli-dev/package");

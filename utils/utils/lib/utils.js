@@ -28,4 +28,16 @@ function sleep(timeout = 1000) {
   return new Promise((resolve) => setTimeout(resolve, timeout));
 }
 
-module.exports = { isObject, exec, spinnerStart, sleep };
+function execAsync(command, args, options) {
+  return new Promise((resolve, reject) => {
+    const p = exec(command, args, options);
+    p.on("error", (e) => {
+      reject(e);
+    });
+    p.on("exit", (c) => {
+      resolve(c);
+    });
+  });
+}
+
+module.exports = { isObject, exec, spinnerStart, sleep, execAsync };
