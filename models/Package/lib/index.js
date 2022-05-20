@@ -71,6 +71,7 @@ class Package {
       log.warn(colors.red(e.message));
     }
   }
+
   // 安装Package
   async install() {
     // 获取最新的npm模块版本号
@@ -87,6 +88,7 @@ class Package {
       ],
     });
   }
+
   // 更新Package
   async update() {
     await this.prepare();

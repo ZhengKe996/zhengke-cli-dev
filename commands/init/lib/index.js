@@ -64,6 +64,7 @@ class InitCommand extends Command {
       throw new Error("项目模板信息无法识别");
     }
   }
+
   checkCommand(cmd) {
     if (WHITE_COMMAND.includes(cmd) >= 0) return cmd;
   }
@@ -157,6 +158,7 @@ class InitCommand extends Command {
       errmsg: "项目启动过程失败, 请手动执行 npm run dev",
     });
   }
+
   // 自定义安装
   async installCustomTemplate() {}
 
@@ -263,6 +265,12 @@ class InitCommand extends Command {
     }
 
     let projectInfo = {};
+    let isProjectNameValid = false;
+    if (isValidName(this.projectName)) {
+      isProjectNameValid = true;
+      projectInfo.projectName = this.projectName;
+    }
+
     // 1. 选择创建项目或组件
     const { type } = await inquirer.prompt({
       type: "list",
@@ -279,28 +287,33 @@ class InitCommand extends Command {
 
     if (type === TYPE_PROJECT) {
       // 2. 获取项目的基本信息
-      const project = await inquirer.prompt([
-        {
-          type: "input",
-          name: "projectName",
-          message: "请输入项目名称",
-          default: "",
-          validate: function (v) {
-            const done = this.async();
+      const projectNamePrompt = {
+        type: "input",
+        name: "projectName",
+        message: "请输入项目名称",
+        default: "",
+        validate: function (v) {
+          const done = this.async();
 
-            setTimeout(function () {
-              // 1.首字符必须为英文字符
-              // 2.尾字符必须为英文或数字，不能为字符
-              // 3.字符仅允许"-_"
-              if (!isValidName(v)) {
-                done(`请输入合法的项目名称`);
-                return;
-              }
-              done(null, true);
-            }, 0);
-          },
-          filter: (v) => v,
+          setTimeout(function () {
+            // 1.首字符必须为英文字符
+            // 2.尾字符必须为英文或数字，不能为字符
+            // 3.字符仅允许"-_"
+            if (!isValidName(v)) {
+              done(`请输入合法的项目名称`);
+              return;
+            }
+            done(null, true);
+          }, 0);
         },
+        filter: (v) => v,
+      };
+
+      const projectPrompt = [];
+
+      if (!isProjectNameValid) projectPrompt.push(projectNamePrompt);
+
+      projectPrompt.push(
         {
           type: "input",
           name: "projectVersion",
@@ -327,10 +340,13 @@ class InitCommand extends Command {
           name: "projectTemplate",
           message: "请选择项目模板",
           choices: this.createTemplateChoice(),
-        },
-      ]);
+        }
+      );
+
+      const project = await inquirer.prompt(projectPrompt);
 
       projectInfo = {
+        ...projectInfo,
         type,
         ...project,
       };
@@ -350,6 +366,7 @@ class InitCommand extends Command {
     // return 项目的基本信息 (Object)
     return projectInfo;
   }
+
   createTemplateChoice() {
     return this.template.map((item) => ({
       value: item.npmName,
