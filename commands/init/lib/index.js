@@ -41,7 +41,6 @@ class InitCommand extends Command {
 
         // 2. 下载模板
         await this.downloadTemplate();
-
         // 3. 安装模板
         await this.installTemplate();
       }
@@ -123,6 +122,7 @@ class InitCommand extends Command {
 
   // 标准安装
   async installNormalTemplate() {
+    console.log("------4");
     log.verbose("templateInfo", this.templateInfo);
     // 1. 拷贝模板代码至当前目录
     let spinner = spinnerStart("正在安装模板");

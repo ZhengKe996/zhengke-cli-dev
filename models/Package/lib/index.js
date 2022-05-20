@@ -6,7 +6,7 @@ const log = require("@zhengke-cli-dev/log");
 const colors = require("colors/safe");
 const pkgDir = require("pkg-dir").sync;
 const npmInstall = require("npminstall");
-const pathExists = require("path-exists");
+const pathExists = require("path-exists").sync;
 
 const {
   getDefaultRegistry,
@@ -63,6 +63,7 @@ class Package {
     try {
       if (this.storeDir) {
         await this.prepare();
+
         return pathExists(this.cacheFilePath);
       } else {
         return pathExists(this.targetPath);
@@ -100,7 +101,7 @@ class Package {
     const latestFilePath = this.getSpecificCacheFilePath(latestPackageVersion);
     // 3. 如果不存在，则直接安装最新的版本
     if (!pathExists(latestFilePath)) {
-      await npminstall({
+      await npmInstall({
         root: this.targetPath,
         storeDir: this.storeDir,
         registry: getDefaultRegistry(),
@@ -123,7 +124,7 @@ class Package {
       // 1. 获取 package.json 所在目录
       const dir = pkgDir(targetPath);
       if (dir) {
-        // 2. 读取package.json
+        // 2. 读取 package.json
         const pkgFile = require(path.resolve(dir, "package.json"));
         // 3. 寻找 main/lib
         if (pkgFile && pkgFile.main) {
