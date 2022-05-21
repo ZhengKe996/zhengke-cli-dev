@@ -1,6 +1,6 @@
 {
   "name": "@zhengke-cli-dev/command",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "zhengke cli dev command",
   "author": "ZhengKe <3119531802@qq.com>",
   "homepage": "https://github.com/ZhengKe996/zhengke-cli-dev#readme",
@@ -27,7 +27,7 @@
     "url": "https://github.com/ZhengKe996/zhengke-cli-dev/issues"
   },
   "dependencies": {
-    "@zhengke-cli-dev/log": "^1.0.6",
+    "@zhengke-cli-dev/log": "^1.0.7",
     "colors": "^1.4.0",
     "semver": "^7.3.7"
   },
