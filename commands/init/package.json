@@ -27,9 +27,9 @@
     "url": "https://github.com/ZhengKe996/zhengke-cli-dev/issues"
   },
   "dependencies": {
-    "@zhengke-cli-dev/command": "file:../../models/command",
+    "@zhengke-cli-dev/command": "^1.0.7",
     "@zhengke-cli-dev/log": "^1.0.7",
-    "@zhengke-cli-dev/package": "file:../../models/package",
+    "@zhengke-cli-dev/package": "^1.0.8",
     "@zhengke-cli-dev/request": "^1.0.7",
     "@zhengke-cli-dev/utils": "^1.0.7",
     "ejs": "^3.1.8",

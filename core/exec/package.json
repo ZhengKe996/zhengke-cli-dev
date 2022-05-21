@@ -28,7 +28,7 @@
   },
   "dependencies": {
     "@zhengke-cli-dev/log": "^1.0.7",
-    "@zhengke-cli-dev/package": "file:../../models/package",
+    "@zhengke-cli-dev/package": "^1.0.8",
     "@zhengke-cli-dev/utils": "^1.0.7"
   },
   "gitHead": "2a63a8f71d49bc16dd79eb23e54e596a224afa04"
