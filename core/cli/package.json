@@ -20,11 +20,11 @@
     "test": "echo \"Run testing from core\""
   },
   "dependencies": {
-    "@zhengke-cli-dev/exec": "file:../exec",
+    "@zhengke-cli-dev/exec": "^1.0.5",
     "@zhengke-cli-dev/get-npm-info": "file:../../utils/get-npm-info",
-    "@zhengke-cli-dev/init": "file:../../commands/init",
-    "@zhengke-cli-dev/log": "file:../../utils/log",
-    "@zhengke-cli-dev/utils": "file:../../utils/utils",
+    "@zhengke-cli-dev/init": "^1.0.5",
+    "@zhengke-cli-dev/log": "^1.0.5",
+    "@zhengke-cli-dev/utils": "^1.0.5",
     "colors": "^1.4.0",
     "commander": "^9.2.0",
     "dotenv": "^16.0.1",
@@ -35,7 +35,7 @@
     "semver": "^7.3.7",
     "user-home": "^3.0.0"
   },
-  "gitHead": "72b0f1ef8cbbc0ab1d63b4c0873cfe4185cc4314",
+  "gitHead": "27dfdb9c3135acfa25f586a61867bd25fd81d37c",
   "publishConfig": {
     "access": "public"
   }

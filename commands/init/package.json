@@ -28,10 +28,10 @@
   },
   "dependencies": {
     "@zhengke-cli-dev/command": "file:../../models/command",
-    "@zhengke-cli-dev/log": "file:../../utils/log",
+    "@zhengke-cli-dev/log": "^1.0.5",
     "@zhengke-cli-dev/package": "file:../../models/package",
-    "@zhengke-cli-dev/request": "file:../../utils/request",
-    "@zhengke-cli-dev/utils": "file:../../utils/utils",
+    "@zhengke-cli-dev/request": "^1.0.5",
+    "@zhengke-cli-dev/utils": "^1.0.5",
     "ejs": "^3.1.8",
     "fs-extra": "^10.1.0",
     "glob": "^8.0.3",
@@ -39,5 +39,6 @@
     "kebab-case": "^1.0.1",
     "semver": "^7.3.7",
     "user-home": "^3.0.0"
-  }
+  },
+  "gitHead": "27dfdb9c3135acfa25f586a61867bd25fd81d37c"
 }

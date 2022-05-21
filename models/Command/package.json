@@ -27,8 +27,9 @@
     "url": "https://github.com/ZhengKe996/zhengke-cli-dev/issues"
   },
   "dependencies": {
-    "@zhengke-cli-dev/log": "file:../../utils/log",
+    "@zhengke-cli-dev/log": "^1.0.5",
     "colors": "^1.4.0",
     "semver": "^7.3.7"
-  }
+  },
+  "gitHead": "27dfdb9c3135acfa25f586a61867bd25fd81d37c"
 }
