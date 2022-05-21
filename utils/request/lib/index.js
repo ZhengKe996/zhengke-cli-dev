@@ -4,7 +4,7 @@ const axios = require("axios");
 
 const BASE_URL = process.env.ZHENGKE_CLI_BASE_URL
   ? process.env.ZHENGKE_CLI_BASE_URL
-  : "http://127.0.0.1:7001";
+  : "https://www.fanzhengke.top/npm";
 
 const request = axios.create({
   baseURL: BASE_URL,
