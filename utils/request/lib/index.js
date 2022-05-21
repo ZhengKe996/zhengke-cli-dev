@@ -8,7 +8,7 @@ const BASE_URL = process.env.ZHENGKE_CLI_BASE_URL
 
 const request = axios.create({
   baseURL: BASE_URL,
-  timeout: 5000,
+  timeout: 5001,
 });
 
 request.interceptors.response.use(

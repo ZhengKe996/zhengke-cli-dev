@@ -13,6 +13,7 @@ const log = require("@zhengke-cli-dev/log");
 const Package = require("@zhengke-cli-dev/package");
 const { spinnerStart, execAsync } = require("@zhengke-cli-dev/utils");
 const getProjectTemplate = require("./getProjectTemplate");
+
 const TYPE_PROJECT = "project";
 const TYPE_COMPONENT = "component";
 const TEMPLATE_TYPE_NORMAL = "normal";

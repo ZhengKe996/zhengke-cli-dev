@@ -12,6 +12,7 @@ const {
   getDefaultRegistry,
   getNpmSemverVsersion,
 } = require("@zhengke-cli-dev/get-npm-info");
+
 const formatPath = require("@zhengke-cli-dev/format-path");
 const { isObject } = require("@zhengke-cli-dev/utils");
 class Package {

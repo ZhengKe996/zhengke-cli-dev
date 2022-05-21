@@ -4,6 +4,7 @@ const path = require("path");
 const log = require("@zhengke-cli-dev/log");
 const Package = require("@zhengke-cli-dev/package");
 const { exec: spawn } = require("@zhengke-cli-dev/utils");
+
 const SETTINGS = {
   init: "@zhengke-cli-dev/init",
 };
@@ -54,9 +55,6 @@ async function exec() {
 
   if (rootFile) {
     try {
-      // 在当前进程调用
-      // require(rootFile).call(null, Array.from(arguments));
-
       // 在node 子进程中调用
       const args = Array.from(arguments);
       const cmd = args[args.length - 1];
