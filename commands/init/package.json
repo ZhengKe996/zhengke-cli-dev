@@ -1,6 +1,6 @@
 {
   "name": "@zhengke-cli-dev/init",
-  "version": "1.0.10",
+  "version": "1.0.11",
   "description": "> TODO: description",
   "author": "ZhengKe <3119531802@qq.com>",
   "homepage": "https://github.com/ZhengKe996/zhengke-cli-dev#readme",
@@ -27,11 +27,11 @@
     "url": "https://github.com/ZhengKe996/zhengke-cli-dev/issues"
   },
   "dependencies": {
-    "@zhengke-cli-dev/command": "^1.0.10",
-    "@zhengke-cli-dev/log": "^1.0.10",
-    "@zhengke-cli-dev/package": "^1.0.10",
-    "@zhengke-cli-dev/request": "^1.0.10",
-    "@zhengke-cli-dev/utils": "^1.0.10",
+    "@zhengke-cli-dev/command": "^1.0.11",
+    "@zhengke-cli-dev/log": "^1.0.11",
+    "@zhengke-cli-dev/package": "^1.0.11",
+    "@zhengke-cli-dev/request": "^1.0.11",
+    "@zhengke-cli-dev/utils": "^1.0.11",
     "ejs": "^3.1.8",
     "fs-extra": "^10.1.0",
     "glob": "^8.0.3",
