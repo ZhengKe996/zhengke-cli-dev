@@ -1,6 +1,6 @@
 {
   "name": "@zhengke-cli-dev/exec",
-  "version": "1.0.9",
+  "version": "1.0.10",
   "description": "zhengke-cli execute package",
   "author": "ZhengKe <3119531802@qq.com>",
   "homepage": "https://github.com/ZhengKe996/zhengke-cli-dev#readme",
@@ -27,9 +27,9 @@
     "url": "https://github.com/ZhengKe996/zhengke-cli-dev/issues"
   },
   "dependencies": {
-    "@zhengke-cli-dev/log": "^1.0.9",
-    "@zhengke-cli-dev/package": "^1.0.9",
-    "@zhengke-cli-dev/utils": "^1.0.9"
+    "@zhengke-cli-dev/log": "^1.0.10",
+    "@zhengke-cli-dev/package": "^1.0.10",
+    "@zhengke-cli-dev/utils": "^1.0.10"
   },
   "gitHead": "2a63a8f71d49bc16dd79eb23e54e596a224afa04"
 }

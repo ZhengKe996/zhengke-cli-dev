@@ -1,6 +1,6 @@
 {
   "name": "@zhengke-cli-dev/core",
-  "version": "1.0.9",
+  "version": "1.0.10",
   "description": "zhengke-cli dev core",
   "author": "ZhengKe <3119531802@qq.com>",
   "homepage": "",
@@ -20,11 +20,11 @@
     "test": "echo \"Run testing from core\""
   },
   "dependencies": {
-    "@zhengke-cli-dev/exec": "^1.0.9",
-    "@zhengke-cli-dev/get-npm-info": "^1.0.9",
-    "@zhengke-cli-dev/init": "^1.0.9",
-    "@zhengke-cli-dev/log": "^1.0.9",
-    "@zhengke-cli-dev/utils": "^1.0.9",
+    "@zhengke-cli-dev/exec": "^1.0.10",
+    "@zhengke-cli-dev/get-npm-info": "^1.0.10",
+    "@zhengke-cli-dev/init": "^1.0.10",
+    "@zhengke-cli-dev/log": "^1.0.10",
+    "@zhengke-cli-dev/utils": "^1.0.10",
     "colors": "^1.4.0",
     "commander": "^9.2.0",
     "dotenv": "^16.0.1",
