@@ -1,5 +1,7 @@
 # Zhengke-Cli-Dev
 
+[NPM](https://www.npmjs.com/package/@zhengke-cli-dev/core)
+
 一个基于 Node.js 的前端 cli 脚手架，偷懒小工具（目前仅支持 MacOS 功能不断完善 ing...）
 
 ### 安装
