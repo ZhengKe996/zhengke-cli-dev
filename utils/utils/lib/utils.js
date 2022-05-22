@@ -1,7 +1,5 @@
 "use strict";
 
-const cp = require("child_process");
-
 function isObject(o) {
   return Object.prototype.toString.call(o) === "[object Object]";
 }
