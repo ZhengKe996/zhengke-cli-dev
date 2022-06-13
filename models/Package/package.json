@@ -1,6 +1,6 @@
 {
   "name": "@zhengke-cli-dev/package",
-  "version": "1.0.11",
+  "version": "1.0.12",
   "description": "zhengke cli dev package",
   "author": "ZhengKe <3119531802@qq.com>",
   "homepage": "https://github.com/ZhengKe996/zhengke-cli-dev#readme",
@@ -27,10 +27,10 @@
     "url": "https://github.com/ZhengKe996/zhengke-cli-dev/issues"
   },
   "dependencies": {
-    "@zhengke-cli-dev/format-path": "^1.0.11",
-    "@zhengke-cli-dev/get-npm-info": "^1.0.11",
-    "@zhengke-cli-dev/log": "^1.0.11",
-    "@zhengke-cli-dev/utils": "^1.0.11",
+    "@zhengke-cli-dev/format-path": "^1.0.12",
+    "@zhengke-cli-dev/get-npm-info": "^1.0.12",
+    "@zhengke-cli-dev/log": "^1.0.12",
+    "@zhengke-cli-dev/utils": "^1.0.12",
     "colors": "^1.4.0",
     "fs-extra": "^10.1.0",
     "npminstall": "^6.1.0",
