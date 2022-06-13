@@ -1,11 +1,8 @@
 # `core`
 
-> TODO: description
-
-## Usage
-
-```
-const core = require('core');
-
-// TODO: DEMONSTRATE API
-```
+1. 命令注册 解析命令
+2. 检查本地版本与远程版本的差异
+3. 检查用户目录
+4. 检查版本号
+5. 检查是否为 root 用户
+6. 检查环境变量

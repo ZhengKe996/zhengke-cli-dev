@@ -1,11 +1,6 @@
 # `@zhengke-cli-dev/init`
 
-> TODO: description
-
-## Usage
-
-```
-const init = require('@zhengke-cli-dev/init');
-
-// TODO: DEMONSTRATE API
-```
+1. 获取远程远程仓库所有模板信息
+2. 下载/安装模板
+3. 标准安装/自定义安装
+4. Ejs 进行模板渲染

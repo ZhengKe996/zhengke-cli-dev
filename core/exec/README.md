@@ -1,11 +1,3 @@
 # `@zhengke-cli-dev/exec`
 
-> TODO: description
-
-## Usage
-
-```
-const exec = require('@zhengke-cli-dev/exec');
-
-// TODO: DEMONSTRATE API
-```
+1. zhengke-cli 初始化的执行 本地缓存

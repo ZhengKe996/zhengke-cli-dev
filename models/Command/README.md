@@ -1,11 +1,4 @@
 # `@zhengke-cli-dev/command`
 
-> TODO: description
-
-## Usage
-
-```
-const command = require('@zhengke-cli-dev/command');
-
-// TODO: DEMONSTRATE API
-```
+1. 参数初始化
+2. 检查 Node 版本号

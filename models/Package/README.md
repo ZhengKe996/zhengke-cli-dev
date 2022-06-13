@@ -1,11 +1,3 @@
 # `@zhengke-cli-dev/Package`
 
-> TODO: description
-
-## Usage
-
-```
-const package = require('@zhengke-cli-dev/Package');
-
-// TODO: DEMONSTRATE API
-```
+1. 模板的更新、下载、本地缓存等功能

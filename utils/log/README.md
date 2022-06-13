@@ -1,11 +1,3 @@
 # `@zhengke-cli-dev/log`
 
-> TODO: description
-
-## Usage
-
-```
-const log = require('@zhengke-cli-dev/log');
-
-// TODO: DEMONSTRATE API
-```
+1. 日志输出进行封装

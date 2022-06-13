@@ -1,11 +1,3 @@
 # `@zhengke-cli-dev/request`
 
-> TODO: description
-
-## Usage
-
-```
-const request = require('@zhengke-cli-dev/request');
-
-// TODO: DEMONSTRATE API
-```
+1. 封装 axios 请求，方便后续使用
